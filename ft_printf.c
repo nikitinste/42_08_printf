@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:41:59 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/17 17:33:57 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 12:12:00 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ static int	get_format(va_list *ap, const char *format, t_printf *p)
 	if (format[p->i] == '%')
 		return (addnchar(p, '%', 1));
 	tformat_init(&f);
-	if (POS == ' ' || POS == '#' || POS == '0' || POS == '-' || POS == '+')
+	if (P == ' ' || P == '#' || P == '0' || P == '-' || P == '+')
 		set_flags(p, format, &f);
-	if (POS == '.' || (POS >= '0' && POS <= '9') || POS == '*')
+	if (P == '.' || (P >= '0' && P <= '9') || P == '*')
 		set_wnp(p, format, &f, ap);
-	if (POS == 'h' || POS == 'l' || POS == 'L')
+	if (P == 'h' || P == 'l' || P == 'L')
 		set_length(p, format, &f);
-	if (POS == 'c' || POS == 's' || POS == 'p' || POS == 'f' || POS == 'd' \
-		|| POS == 'i' || POS == 'o' || POS == 'u' || POS == 'x' || POS == 'X')
-			set_type(POS, p, &f);
-	else if (format[p->i] == '%')
-		return (addnchar(p, '%', 1));
+	if (P == 'c' || P == 's' || P == 'p' || P == 'f' || P == 'd' || P == 'i' \
+		|| P == 'o' || P == 'u' || P == 'x' || P == 'X' || P == '%')
+			set_type(P, &f);
 	else
 		return (1);
-	return (p->method_arr[f.type](p, &f, ap));
+	if (!(p->method_arr[f.type](p, &f, ap)))
+		return free_str(&f);
+	return (1);
 }
 
 int			ft_printf(const char *format, ...)
@@ -58,5 +58,6 @@ int			ft_printf(const char *format, ...)
 	}
 	write(1, p.str, p.len);
 	free_buf(&p);
+	va_end(ap);
 	return (p.len);
 }

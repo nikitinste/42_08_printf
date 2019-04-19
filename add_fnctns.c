@@ -6,11 +6,18 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:09:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/17 16:28:56 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 11:01:30 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int		free_str(t_format *f)
+{
+	if (f->str != NULL)
+		free(f->str);
+	return (0);
+}
 
 int		free_buf(t_printf *p)
 {
@@ -27,10 +34,12 @@ void	tformat_init(t_format *f)
 	f->precision = -1;
 	f->type = -1;
 	i = -1;
-	while (i++ < 5)
+	while (++i < 5)
 		f->flags[i] = 0;
 	f->length[0] = 0;
 	f->length[1] = 0;
+	f->len = 0;
+	f->str = NULL;
 }
 
 void	tprintf_init(t_printf *p)
@@ -47,4 +56,5 @@ void	tprintf_init(t_printf *p)
 	p->method_arr[5] = (method)&format_o;
 	p->method_arr[6] = (method)&format_u;
 	p->method_arr[7] = (method)&format_x;
+	p->method_arr[8] = (method)&format_prcnt;
 }

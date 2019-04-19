@@ -6,23 +6,13 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:55:11 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/17 18:11:23 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/18 20:14:19 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}*/
-
-static void	pft_strncpy(char *dst, const char *src, size_t len)
+void	pft_strncpy(char *dst, const char *src, size_t len)
 {
 	size_t	i;
 
@@ -32,6 +22,31 @@ static void	pft_strncpy(char *dst, const char *src, size_t len)
 		dst[i] = (char)src[i];
 		i++;
 	}
+}
+
+int		addnspaces(t_format *f, char c, int n)
+{
+	char	*buf;
+	int		len;
+	int		i;
+
+	if (n <= 0)
+		return (1);
+	len = f->len + n;
+	if (!(buf = (char*)malloc(sizeof(char) * (len + 1))))
+		return (0);
+	buf[len] = '\0';
+	pft_strncpy(buf, f->str, f->len);
+	i = 0;
+	while (i < n)
+	{
+		buf[f->len + i] = c;
+		i++;
+	}
+	free (f->str);
+	f->str = buf;
+	f->len = len;
+	return (1);
 }
 
 int		addnchar(t_printf *p, char c, int n)
@@ -61,11 +76,9 @@ int		addnchar(t_printf *p, char c, int n)
 
 int		join_f(const char *format, t_printf *p)
 {
-	int		i;
 	int		len;
 	char	*buf;
 
-	i = 0;
 	len = p->i - p->start;
 	if (p->str == NULL)
 	{
