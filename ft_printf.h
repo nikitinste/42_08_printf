@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 12:42:40 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 19:00:30 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		addnchar(t_printf *p, char c, int n);
 void	pft_strncpy(char *dst, const char *src, size_t len);
 void	tformat_init(t_format *f);
 int		addnspaces(t_format *f, char c, int n);
+char	*pft_itoa(long long n, int *order);
 
 void	set_flags(t_printf *p, const char *format, t_format *f);
 void	set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap);
