@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:41:59 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 12:12:00 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 15:31:58 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int			ft_printf(const char *format, ...)
 		if (p.i != p.start)
 			if (!join_f(format, &p))
 				return (free_buf(&p));
-		if (!get_format(&ap, format, &p))
-			return (free_buf(&p));
+		if (format[p.i] != '\0')
+			if (!get_format(&ap, format, &p))
+				return (free_buf(&p));
 		if (format[p.i] != '\0')
 			p.i++;
 		p.start = p.i;

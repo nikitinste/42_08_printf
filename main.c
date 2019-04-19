@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:04:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 12:49:35 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 14:10:17 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		main(void)
 {
 	int		ret;
 
-	ret = ft_printf("%0*.*s", 5, 3, "abcd");
+	ret = ft_printf("%*.*s\n Lala\n%-5cA", 5, 3, "abcd", 'D');
 	ft_putchar('\n');
 	ft_putnbr(ret);
 	ft_putchar('\n');
