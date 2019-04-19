@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:09:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 11:01:30 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 12:39:16 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void	tprintf_init(t_printf *p)
 	p->method_arr[5] = (method)&format_o;
 	p->method_arr[6] = (method)&format_u;
 	p->method_arr[7] = (method)&format_x;
-	p->method_arr[8] = (method)&format_prcnt;
+	p->method_arr[8] = (method)&format_c;
 }

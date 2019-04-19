@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 12:11:38 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 12:42:40 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,4 @@ int		format_d(t_printf *p, t_format *f, va_list *ap);
 int		format_o(t_printf *p, t_format *f, va_list *ap);
 int		format_u(t_printf *p, t_format *f, va_list *ap);
 int		format_x(t_printf *p, t_format *f, va_list *ap);
-int		format_prcnt(t_printf *p, t_format *f, va_list *ap);
 #endif

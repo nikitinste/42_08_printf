@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:43:32 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 11:15:41 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 12:41:42 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int		format_c(t_printf *p, t_format *f, va_list *ap)
 	if (!(f->str = (char*)malloc(sizeof(char) * 2)))
 		return (0);
 	f->str[1] = '\0';
-	f->str[0] = (char)va_arg(*ap, int);
+	if (f->type == 0)
+		f->str[0] = (char)va_arg(*ap, int);
+	else if (f->type == 8)
+		f->str[0] = '%';
 	f->len = 1;
 	return (char_flags(p, f));
 }

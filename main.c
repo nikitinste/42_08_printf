@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:04:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 12:21:01 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/19 12:49:35 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		main(void)
 {
 	int		ret;
 
-	ret = ft_printf("%5.1s %03c\n%3.5s", "lala", 'A', "123456");
+	ret = ft_printf("%0*.*s", 5, 3, "abcd");
 	ft_putchar('\n');
 	ft_putnbr(ret);
 	ft_putchar('\n');
