@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:33:20 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 11:32:23 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/20 19:11:04 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,20 @@ static int	join_buf(t_printf *p, t_format *f)
 	return (1);
 }
 
-int		float_flags(t_printf *p, t_format *f)
+static void	char_shift(t_format *f)
 {
-	if (!join_buf(p, f))
-		return (0);
-	return (1);
+	int		i;
+
+	i = f->len - 1;
+	while (i > 0)
+	{
+		f->str[i] = f->str[i - 1];
+		i--;
+	}
+	f->str[i] = ' ';
 }
 
-int		int_flags(t_printf *p, t_format *f)
+int		float_flags(t_printf *p, t_format *f)
 {
 	if (!join_buf(p, f))
 		return (0);
@@ -65,11 +71,30 @@ int		char_flags(t_printf *p, t_format *f)
 		}
 		else
 		{
-			if (f->flags[2])
+			if (f->flags[2] && f->precision < 0)
 				c = '0';
 			if (!addnchar(p, c, diff))
 				return (0);
 		}
+	}
+	if (f->type == 0 || f->type == 1 || f->type == 8)
+		if (!join_buf(p, f))
+			return (0);
+	return (1);
+}
+
+int		int_flags(t_printf *p, t_format *f)
+{
+	if (!char_flags(p, f))
+		return (0);
+	if (f->flags[0] && !f->flags[4] && f->str[0] != '-' && f->str[0] != ' ')
+	{
+		if (f->str[0] == '0' && f->len > 1)
+			f->str[0] = ' ';
+		else if (f->str[f->len - 1] == ' ')
+			char_shift(f);
+		else
+			addnchar(p, ' ', 1);
 	}
 	if (!join_buf(p, f))
 		return (0);

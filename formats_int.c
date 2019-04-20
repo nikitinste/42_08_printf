@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 16:13:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 19:04:03 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/20 12:44:45 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static long long	take_less(va_list *ap, int type)
 int		format_d(t_printf *p, t_format *f, va_list *ap)
 {
 	long long	arg;
-	char		*str;
-	int			order;
 
 	if (f->length[0] != 0)
 	{
@@ -51,12 +49,12 @@ int		format_d(t_printf *p, t_format *f, va_list *ap)
 			if (f->length[1] == 'h')
 				arg = take_less(ap, 1);
 			else
-				arg = take_less(ap, 2);		}
+				arg = take_less(ap, 2);
+		}
 	}
 	else
 		arg = (long long)va_arg(*ap, int);
-	str = pft_itoa(arg, &order);
-	if (p)
-		ft_putstr(str);
-	return (1);
+	if (!(f->str = pft_itoa(arg, f)))
+		return (0);
+	return (int_flags(p, f));
 }
