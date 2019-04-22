@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:41:59 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 15:31:58 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 14:16:43 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_format(va_list *ap, const char *format, t_printf *p)
 	p->i++;
 	if (format[p->i] == '%')
 		return (addnchar(p, '%', 1));
-	tformat_init(&f);
+	tformat_init(&f, p);
 	if (P == ' ' || P == '#' || P == '0' || P == '-' || P == '+')
 		set_flags(p, format, &f);
 	if (P == '.' || (P >= '0' && P <= '9') || P == '*')

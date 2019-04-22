@@ -6,17 +6,17 @@
 #    By: uhand <uhand@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/15 12:42:26 by uhand             #+#    #+#              #
-#    Updated: 2019/04/22 12:37:37 by uhand            ###   ########.fr        #
+#    Updated: 2019/04/19 19:03:11 by uhand            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = a.out
 
 HEAD = ft_printf.h
-SRC = ft_printf.c lib_printf.c add_fnctns.c set_format.c set_type.c \
+SRC = main.c ft_printf.c lib_printf.c add_fnctns.c set_format.c set_type.c \
 apply_flags.c formats_c_s.c other_formats.c formats_int.c pft_itoa.c
 OBJ = $(addprefix $(OBJPATH)/,$(SRC:.c=.o))
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -g #-Wall -Wextra -Werror
 LIB = -L libft -lft
 LIBPATH = ./libft
 
@@ -24,10 +24,10 @@ OBJPATH = ./objects
 
 all:
 	mkdir -p $(OBJPATH)
-	@make $(NAME)
+	@make $(NAME) -f Makefile_1
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ) libft/*.o
+	gcc $(OBJ) -o $(NAME) $(LIB)
 
 $(OBJPATH)/%.o: %.c $(HEAD)
 	gcc $(FLAGS) -c $< -o $@

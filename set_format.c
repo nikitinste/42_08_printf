@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:42:26 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/18 11:20:27 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 12:34:45 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,26 @@
 ** ---------------------------- Flags parsing ---------------------------------|
 */
 
-static int	check_flag(t_format *f, int i)
+static void	check_flag(t_format *f, int i)
 {
 	if (!f->flags[i])
 		f->flags[i]++;
-	else
-		return (0);
-	return (1);
 }
 
-void	set_flags(t_printf *p, const char *format, t_format *f)
+void		set_flags(t_printf *p, const char *format, t_format *f)
 {
 	while (P == ' ' || P == '#' || P == '0' || P == '-' || P == '+')
 	{
 		if (P == ' ')
-			if (!check_flag(f, 0))
-				return ;
-		if (P == '#')
-			if (!check_flag(f, 1))
-				return ;
-		if (P == '0')
-			if (!check_flag(f, 2))
-				return ;
-		if (P == '-')
-			if (!check_flag(f, 3))
-				return ;
-		if (P == '+')
-			if (!check_flag(f, 4))
-				return ;
+			check_flag(f, 0);
+		else if (P == '#')
+			check_flag(f, 1);
+		else if (P == '0')
+			check_flag(f, 2);
+		else if (P == '-')
+			check_flag(f, 3);
+		else if (P == '+')
+			check_flag(f, 4);
 		p->i++;
 	}
 }

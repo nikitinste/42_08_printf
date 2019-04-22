@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/20 11:52:58 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 14:16:42 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ struct	s_format
 	int		precision;
 	int		type;
 	int		len;
+	int		start;
 	char	flags[5];
 	char	length[2];
 	char	*str;
@@ -48,6 +49,7 @@ struct	s_printf
 	int		start;
 	int		i;
 	int		len;
+	int		*f_start;
 	char	*str;
 	method	method_arr[9];
 };
@@ -59,7 +61,7 @@ int		free_buf(t_printf *p);
 int		free_str(t_format *f);
 int		addnchar(t_printf *p, char c, int n);
 void	pft_strncpy(char *dst, const char *src, size_t len);
-void	tformat_init(t_format *f);
+void	tformat_init(t_format *f, t_printf *p);
 int		addnspaces(t_format *f, char c, int n);
 char	*pft_itoa(long long n, t_format *f);
 

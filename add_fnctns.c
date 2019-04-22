@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:09:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 13:17:48 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 14:17:24 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		free_buf(t_printf *p)
 	return (-1);
 }
 
-void	tformat_init(t_format *f)
+void	tformat_init(t_format *f, t_printf *p)
 {
 	int		i;
 
@@ -40,6 +40,8 @@ void	tformat_init(t_format *f)
 	f->length[1] = 0;
 	f->len = 0;
 	f->str = NULL;
+	f->start = -1;
+	p->f_start = &f->start;
 }
 
 void	tprintf_init(t_printf *p)

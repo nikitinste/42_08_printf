@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:43:32 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/19 12:41:42 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 11:16:05 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ int		format_s(t_printf *p, t_format *f, va_list *ap)
 	char	*arg;
 
 	arg = va_arg(*ap, char*);
-	f->len = ft_strlen(arg);
+	if (arg == NULL)
+	{
+		arg = "(null)";
+		f->len = 6;
+	}
+	else
+		f->len = ft_strlen(arg);
 	if (f->precision >= 0 && f->precision < f->len)
 		f->len = f->precision;
 	if (!(f->str = (char*)malloc(sizeof(char) * (f->len + 1))))

@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 18:45:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/20 15:46:45 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 12:17:43 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ static void	set_string(char *str, unsigned long long num, int order, int dif)
 {
 	int		i;
 
-	if (num == 0)
-	{
-		str[0] = '0';
-		return ;
-	}
 	while (order > 0)
 	{
 		str[order + dif - 1] = (num % 10) + 48;
@@ -56,7 +51,11 @@ static void	check_sig_n_nprec(int *dif, long long n, t_format *f)
 		f->len = f->precision;
 	}
 	if (f->flags[4] || n < 0)
+	{
 		f->len++;
+		if (f->width > f->len && f->flags[2] && !f->flags[3])
+			f->len = f->width;
+	}
 }
 
 char		*pft_itoa(long long n, t_format *f)

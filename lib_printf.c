@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:55:11 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/18 20:14:19 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/22 14:48:09 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int		addnchar(t_printf *p, char c, int n)
 	buf[len] = '\0';
 	pft_strncpy(buf, p->str, p->len);
 	i = 0;
+	if (c != '%')
+		*p->f_start = p->len + i;
 	while (i < n)
 	{
 		buf[p->len + i] = c;
