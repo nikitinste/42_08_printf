@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 09:59:33 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 17:02:54 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/25 18:00:16 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	set_base_string(t_format *f, unsigned long long num, int order, \
 		{
 			if ((num % 16) > 9)
 			{
-				if (f->type == 7)
+				if (f->type == 7 || f->type == 2)
 					f->str[order + dif - 1] = (num % 16) + 87;
 				else
 					f->str[order + dif - 1] = (num % 16) + 55;
@@ -44,7 +44,7 @@ static void	set_base_string(t_format *f, unsigned long long num, int order, \
 static void	add_prefix(char *str, t_format *f, int *dif)
 {
 	str[0] = '0';
-	if (f->type == 7)
+	if (f->type == 7 || f->type == 2)
 	{
 		str[1] = 'x';
 		*dif += 2;
@@ -93,7 +93,8 @@ static void	check_sign_n_prec_unsigned(unsigned long long n, int *dif, \
 		*dif = f->precision - f->len;
 		f->len = f->precision;
 	}
-	if (f->flags[1] && n != 0 && (f->type == 5 || f->type == 7 || f->type == 8))
+	if (f->flags[1] && (n != 0 || f->type == 2) && (f->type == 2 || \
+		f->type == 5 || f->type == 7 || f->type == 8))
 	{
 		if (f->type == 5)
 			f->len++;
@@ -115,7 +116,7 @@ char	*pft_unsigned_itoa(unsigned long long num, t_format *f)
 	check_sign_n_prec_unsigned(num, &dif, f);
 	if (!(f->str = ft_strnew(f->len)))
 		return (NULL);
-	if (f->flags[1] && num != 0 && f->type != 6)
+	if (f->flags[1] && (num != 0 || f->type == 2) && f->type != 6)
 		add_prefix(f->str, f, &dif);
 	else
 		f->str[0] = '0';

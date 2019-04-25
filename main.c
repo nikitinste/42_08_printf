@@ -6,14 +6,14 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:04:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 15:55:55 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/25 18:05:31 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-# define INPUT "%x", 0
+# define INPUT "%.0p, %.p", NULL, NULL
 
 int		main(void)
 {
