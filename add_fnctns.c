@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:09:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/22 14:17:24 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/25 12:11:12 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,36 @@ void	tprintf_init(t_printf *p)
 	p->method_arr[1] = (method)&format_s;//
 	p->method_arr[2] = (method)&format_p;
 	p->method_arr[3] = (method)&format_f;
-	p->method_arr[4] = (method)&format_d;
-	p->method_arr[5] = (method)&format_o;
-	p->method_arr[6] = (method)&format_u;
-	p->method_arr[7] = (method)&format_x;
-	p->method_arr[8] = (method)&format_c;//
+	p->method_arr[4] = (method)&format_d;//
+	p->method_arr[5] = (method)&format_oux;
+	p->method_arr[6] = (method)&format_oux;
+	p->method_arr[7] = (method)&format_oux;
+	p->method_arr[8] = (method)&format_oux;
+	p->method_arr[9] = (method)&format_c;//
+}
+
+void	set_type(char c, t_format *f)
+{
+	if (c == 'c')
+		f->type = 0;
+	else if (c == 's')
+		f->type = 1;
+	else if (c == 'p')
+		f->type = 2;
+	else if (c == 'f')
+		f->type = 3;
+	else if (c == 'd')
+		f->type = 4;
+	else if (c == 'i')
+		f->type = 4;
+	else if (c == 'o')
+		f->type = 5;
+	else if (c == 'u')
+		f->type = 6;
+	else if (c == 'x')
+		f->type = 7;
+	else if (c == 'X')
+		f->type = 8;
+	else if (c == '%')
+		f->type = 9;
 }

@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/22 14:16:42 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/25 16:55:07 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ struct	s_printf
 	int		len;
 	int		*f_start;
 	char	*str;
-	method	method_arr[9];
+	method	method_arr[10];
 };
 
 int		ft_printf(const char *format, ...);
@@ -64,6 +64,11 @@ void	pft_strncpy(char *dst, const char *src, size_t len);
 void	tformat_init(t_format *f, t_printf *p);
 int		addnspaces(t_format *f, char c, int n);
 char	*pft_itoa(long long n, t_format *f);
+char	*pft_unsigned_itoa(unsigned long long num, t_format *f);
+int		pft_order(unsigned long long num, t_format *f);
+void	set_string(char *str, unsigned long long num, int order, int dif);
+void	char_shift(t_format *f);
+int		join_buf(t_printf *p, t_format *f);
 
 void	set_flags(t_printf *p, const char *format, t_format *f);
 void	set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap);
@@ -71,6 +76,7 @@ void	set_length(t_printf *p, const char *format, t_format *f);
 void	set_type(char c, t_format *f);
 int		char_flags(t_printf *p, t_format *f);
 int		int_flags(t_printf *p, t_format *f);
+//int		unsigned_int_flags(t_printf *p, t_format *f);
 int		float_flags(t_printf *p, t_format *f);
 
 int		format_c(t_printf *p, t_format *f, va_list *ap);
@@ -78,7 +84,5 @@ int		format_s(t_printf *p, t_format *f, va_list *ap);
 int		format_p(t_printf *p, t_format *f, va_list *ap);
 int		format_f(t_printf *p, t_format *f, va_list *ap);
 int		format_d(t_printf *p, t_format *f, va_list *ap);
-int		format_o(t_printf *p, t_format *f, va_list *ap);
-int		format_u(t_printf *p, t_format *f, va_list *ap);
-int		format_x(t_printf *p, t_format *f, va_list *ap);
+int		format_oux(t_printf *p, t_format *f, va_list *ap);
 #endif

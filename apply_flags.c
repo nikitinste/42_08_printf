@@ -6,13 +6,13 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:33:20 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/22 14:24:39 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/25 13:13:24 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	join_buf(t_printf *p, t_format *f)
+int		join_buf(t_printf *p, t_format *f)
 {
 	int		len;
 	int		i;
@@ -35,7 +35,7 @@ static int	join_buf(t_printf *p, t_format *f)
 	return (1);
 }
 
-static void	char_shift(t_format *f)
+void	char_shift(t_format *f)
 {
 	int		i;
 
@@ -77,7 +77,7 @@ int		char_flags(t_printf *p, t_format *f)
 				return (0);
 		}
 	}
-	if (f->type == 0 || f->type == 1 || f->type == 8)
+	if (f->type == 0 || f->type == 1 || f->type == 9)
 		if (!join_buf(p, f))
 			return (0);
 	return (1);
@@ -87,7 +87,8 @@ int		int_flags(t_printf *p, t_format *f)
 {
 	if (!char_flags(p, f))
 		return (0);
-	if (f->flags[0] && !f->flags[4] && f->str[0] != '-' && f->str[0] != ' ' && f->start == -1)
+	if (f->flags[0] && f->type == 4 && !f->flags[4] && f->str[0] != '-' \
+		&& f->str[0] != ' ' && f->start == -1)
 	{
 		if (f->str[0] == '0' && f->len > 1)
 			f->str[0] = ' ';

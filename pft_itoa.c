@@ -6,18 +6,22 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 18:45:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/22 12:17:43 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/25 16:54:50 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	pft_order(unsigned long long num)
+int			pft_order(unsigned long long num, t_format *f)
 {
 	int		order;
 
 	if (num == 0)
+	{
+		if (f->precision == 0)
+			return (0);
 		return (1);
+	}
 	order = 0;
 	while (num > 0)
 	{
@@ -27,22 +31,19 @@ static int	pft_order(unsigned long long num)
 	return (order);
 }
 
-static void	set_string(char *str, unsigned long long num, int order, int dif)
+void		set_string(char *str, unsigned long long num, int order, int dif)
 {
-	int		i;
-
 	while (order > 0)
 	{
 		str[order + dif - 1] = (num % 10) + 48;
 		num /= 10;
 		order--;
 	}
-	i = 0;
-	while (++i < dif)
-		str[i] = '0';
+	while (++order < dif)
+		str[order] = '0';
 }
 
-static void	check_sig_n_nprec(int *dif, long long n, t_format *f)
+static void	check_sign_n_prec(int *dif, long long n, t_format *f)
 {
 	*dif = 0;
 	if (f->len < f->precision)
@@ -68,8 +69,8 @@ char		*pft_itoa(long long n, t_format *f)
 		num = (unsigned long long)(-n);
 	else
 		num = (unsigned long long)n;
-	f->len = pft_order(num);
-	check_sig_n_nprec(&dif, n, f);
+	f->len = pft_order(num, f);
+	check_sign_n_prec(&dif, n, f);
 	if (!(str = ft_strnew(f->len)))
 		return (NULL);
 	if (f->flags[4] || n < 0)
