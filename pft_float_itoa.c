@@ -6,27 +6,88 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:00:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 12:20:38 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/27 18:36:40 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*join_float_string(long double n, t_format *f, t_fl_string *s)
+static void	add_sign_or_zero(t_format *f, t_fl_string *s, long double n, int *i)
 {
+	if (n < 0)
+		f->str[0] = '-';
+	else if (f->flags[4])
+		f->str[0] = '+';
+	else if (f->flags[0])
+		f->str[0] = ' ';
+	else if (f->flags[2])
+		f->str[0] = '0';
+	else
+		f->str[0] = ' ';
+	*i += 1;
+	s->dif--;
+}
+
+char		*add_first_part_of_string(long double n, t_format *f, \
+	t_fl_string *s, int i)
+{
+	if (!f->flags[3])
+	{
+		if (!f->flags[2])
+		{
+			while (i < (s->dif - 1))
+			{
+				f->str[i] = ' ';
+				i++;
+			}
+			add_sign_or_zero(f, s, n, &i);
+		}
+		else
+		{
+			add_sign_or_zero(f, s, n, &i);
+			while (i < (s->dif))
+			{
+				f->str[i] = '0';
+				i++;
+			}
+		}
+	}
+	else if (n < 0 || f->flags[4] || f->flags[0])
+		add_sign_or_zero(f, s, n, &i);
+	pft_strncpy(&f->str[i], s->w_part, s->w_len);
+	pft_strncpy(&f->str[s->w_len + i], s->f_part, (f->len - s->w_len - i));
+	while (s->dif > 0)
+	{
+		f->str[f->len - s->dif] = ' ';
+		s->dif--;
+	}
+	return (f->str);
+}
+
+char		*join_float_string(long double n, t_format *f, t_fl_string *s)
+{
+	int		i;
+
+	i = 0;
 	if (!(f->str = ft_strnew(f->len + 1)))
 		return (free_float_parts(s));
 	f->str[f->len] = '\0';
-	if (!s->dif && n >= 0)
+	if (s->dif <= 1)
 	{
-		pft_strncpy(f->str, s->w_part, s->w_len);
-		pft_strncpy(&f->str[s->w_len], s->f_part, (f->len - s->w_len));
+		if (s->dif == 1)
+		{
+			if (f->flags[3] && !(f->flags[4] || n < 0 || f->flags[0]))
+				f->str[f->len - 1] = ' ';
+			else
+				add_sign_or_zero(f, s, n, &i);
+		}
+		pft_strncpy(&f->str[i], s->w_part, s->w_len);
+		pft_strncpy(&f->str[s->w_len + i], s->f_part, (f->len - s->w_len - i));
 		return (f->str);
 	}
 	else
-	{
-		return (f->str);
-	}
+		return (add_first_part_of_string(n, f, s, 0));
+	//free ()
 	return (f->str);
 }
 

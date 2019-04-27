@@ -6,14 +6,14 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:04:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 12:20:01 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/27 17:52:49 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-# define INPUT "%f", -10.12345
+# define INPUT "%10.5f", 0.3499
 
 int		main(void)
 {
@@ -30,3 +30,5 @@ int		main(void)
 
 // ret = printf(res, 123123, "abcde");
 // char res[200] = "%llld\n\0";
+// "{% 03d}", 0
+// "%10.5f", 0.3499

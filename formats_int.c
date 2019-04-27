@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 16:13:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/26 09:20:00 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/27 16:23:10 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ int		format_p(t_printf *p, t_format *f, va_list *ap)
 	unsigned long long	arg;
 
 	arg = (unsigned long long)va_arg(*ap, void*);
-	f->width = -1;
 	f->precision = -1;
 	f->flags[1] = 1;
 	f->flags[2] = 0;

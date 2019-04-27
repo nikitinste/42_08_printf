@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 11:26:31 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/27 16:40:38 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_fl_itoa
 	unsigned long long	whl;
 	unsigned long long	frc;
 	int					frc_order;
+	int					prec;
 }				t_fl_itoa;
 
 /*
