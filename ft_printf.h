@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 16:55:07 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/27 11:26:31 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef int (*method)(t_printf *p, t_format *f, void *data);
 ** Current format's params: f
 */
 
-struct	s_format
+struct			s_format
 {
 	int		width;
 	int		precision;
@@ -44,7 +44,7 @@ struct	s_format
 ** Operational format string's params: p
 */
 
-struct	s_printf
+struct			s_printf
 {
 	int		start;
 	int		i;
@@ -53,6 +53,30 @@ struct	s_printf
 	char	*str;
 	method	method_arr[10];
 };
+
+/*
+** Float itoa's params: a
+*/
+
+typedef struct	s_fl_itoa
+{
+	long double 		num;
+	unsigned long long	whl;
+	unsigned long long	frc;
+	int					frc_order;
+}				t_fl_itoa;
+
+/*
+** Float string's params: s
+*/
+
+typedef struct	s_fl_string
+{
+	char				*w_part;
+	char				*f_part;
+	int					w_len;
+	int					dif;
+}				t_fl_string;
 
 int		ft_printf(const char *format, ...);
 void	tprintf_init(t_printf *p);
@@ -69,6 +93,11 @@ int		pft_order(unsigned long long num, t_format *f);
 void	set_string(char *str, unsigned long long num, int order, int dif);
 void	char_shift(t_format *f);
 int		join_buf(t_printf *p, t_format *f);
+char	*pft_zero_itoa(t_format *f,  t_fl_itoa *a, char *str);
+char	*pft_whole_itoa(t_format *f, unsigned long long whole, char *str);
+int 	get_order(unsigned long long num);
+char	*join_float_string(long double n, t_format *f, t_fl_string *s);
+char	*free_float_parts(t_fl_string *s);
 
 void	set_flags(t_printf *p, const char *format, t_format *f);
 void	set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap);
@@ -76,7 +105,6 @@ void	set_length(t_printf *p, const char *format, t_format *f);
 void	set_type(char c, t_format *f);
 int		char_flags(t_printf *p, t_format *f);
 int		int_flags(t_printf *p, t_format *f);
-//int		unsigned_int_flags(t_printf *p, t_format *f);
 int		float_flags(t_printf *p, t_format *f);
 
 int		format_c(t_printf *p, t_format *f, va_list *ap);

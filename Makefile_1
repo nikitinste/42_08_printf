@@ -13,8 +13,10 @@
 NAME = a.out
 
 HEAD = ft_printf.h
-SRC = main.c ft_printf.c lib_printf.c add_fnctns.c set_format.c apply_flags.c \
-formats_c_s.c other_formats.c formats_int.c pft_itoa.c pft_unsigned_itoa.c
+SRC = ft_printf.c lib_printf.c add_fnctns.c set_format.c apply_flags.c \
+formats_c_s.c format_float.c formats_int.c pft_itoa.c pft_unsigned_itoa.c \
+pft_float_itoa.c main.c
+
 OBJ = $(addprefix $(OBJPATH)/,$(SRC:.c=.o))
 FLAGS = -g #-Wall -Wextra -Werror
 LIB = -L libft -lft

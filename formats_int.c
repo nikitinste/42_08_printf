@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 16:13:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 17:55:34 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/26 09:20:00 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		format_d(t_printf *p, t_format *f, va_list *ap)
 {
 	long long	arg;
 
-	if (f->length[0] != 0)
+	if (f->length[0] != 0 && (f->length[0] == 'l' || f->length[0] == 'h'))
 	{
 		if (f->length[0] == 'l')
 		{
@@ -90,7 +90,7 @@ int		format_oux(t_printf *p, t_format *f, va_list *ap)
 {
 	unsigned long long	arg;
 
-	if (f->length[0] != 0)
+	if (f->length[0] != 0 && (f->length[0] == 'l' || f->length[0] == 'h'))
 	{
 		if (f->length[0] == 'l')
 		{
