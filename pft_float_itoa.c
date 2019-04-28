@@ -6,56 +6,22 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:00:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 18:36:40 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 11:05:50 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	add_sign_or_zero(t_format *f, t_fl_string *s, long double n, int *i)
-{
-	if (n < 0)
-		f->str[0] = '-';
-	else if (f->flags[4])
-		f->str[0] = '+';
-	else if (f->flags[0])
-		f->str[0] = ' ';
-	else if (f->flags[2])
-		f->str[0] = '0';
-	else
-		f->str[0] = ' ';
-	*i += 1;
-	s->dif--;
-}
 
 char		*add_first_part_of_string(long double n, t_format *f, \
 	t_fl_string *s, int i)
 {
 	if (!f->flags[3])
-	{
-		if (!f->flags[2])
-		{
-			while (i < (s->dif - 1))
-			{
-				f->str[i] = ' ';
-				i++;
-			}
-			add_sign_or_zero(f, s, n, &i);
-		}
-		else
-		{
-			add_sign_or_zero(f, s, n, &i);
-			while (i < (s->dif))
-			{
-				f->str[i] = '0';
-				i++;
-			}
-		}
-	}
+		left_side_starters(n, f, s, &i);
 	else if (n < 0 || f->flags[4] || f->flags[0])
 		add_sign_or_zero(f, s, n, &i);
 	pft_strncpy(&f->str[i], s->w_part, s->w_len);
-	pft_strncpy(&f->str[s->w_len + i], s->f_part, (f->len - s->w_len - i));
+	pft_strncpy(&f->str[s->w_len + i], s->f_part, s->f_len);
 	while (s->dif > 0)
 	{
 		f->str[f->len - s->dif] = ' ';
@@ -87,11 +53,11 @@ char		*join_float_string(long double n, t_format *f, t_fl_string *s)
 	}
 	else
 		return (add_first_part_of_string(n, f, s, 0));
-	//free ()
+	free_float_parts(s);
 	return (f->str);
 }
 
-static void	set_float_string(char *str, unsigned long long num, int order, \
+void		set_float_string(char *str, unsigned long long num, int order, \
 	int param)
 {
 	if (param)
@@ -102,32 +68,35 @@ static void	set_float_string(char *str, unsigned long long num, int order, \
 		num /= 10;
 		order--;
 	}
-
 }
 
-char		*pft_zero_itoa(t_format *f, t_fl_itoa *a, char *str)
+char		*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s)
 {
 	int		i;
 
-	if (a->frc)
+	if (a->frc && !(f->precision > a->prec))
 	{
-		if (!(str = ft_strnew(a->frc_order + 1)))
+		if (!(s->f_part = ft_strnew(a->frc_order + 1)))
 			return (NULL);
-		str[a->frc_order] = '\0';
-		set_float_string(str, a->frc, a->frc_order, 0);
+		s->f_part[a->frc_order] = '\0';
+		set_float_string(s->f_part, a->frc, a->frc_order, 0);
 		f->len += a->frc_order;
+		s->f_len = a->frc_order;
 	}
+	else if (a->frc && f->precision > a->prec)
+		return (add_some_bagels(f, a, s));
 	else
 	{
-		if (!(str = ft_strnew(f->precision + 1)))
+		if (!(s->f_part = ft_strnew(f->precision + 1)))
 			return (NULL);
-		str[f->precision] = '\0';
+		s->f_part[f->precision] = '\0';
 		i = -1;
 		while (++i < f->precision)
-			str[i] = '0';
+			s->f_part[i] = '0';
 		f->len += f->precision;
+		s->f_len = f->precision;
 	}
-	return (str);
+	return (s->f_part);
 }
 
 char	*pft_whole_itoa(t_format *f, unsigned long long whole, char *str)

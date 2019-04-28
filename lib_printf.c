@@ -6,18 +6,11 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:55:11 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/26 16:57:49 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 10:23:02 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*free_float_parts(t_fl_string *s)
-{
-	free(s->w_part);
-	free(s->f_part);
-	return (NULL);
-}
 
 void	pft_strncpy(char *dst, const char *src, size_t len)
 {

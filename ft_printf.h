@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 16:40:38 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 11:01:16 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_fl_string
 	char				*w_part;
 	char				*f_part;
 	int					w_len;
+	int					f_len;
 	int					dif;
 }				t_fl_string;
 
@@ -94,11 +95,16 @@ int		pft_order(unsigned long long num, t_format *f);
 void	set_string(char *str, unsigned long long num, int order, int dif);
 void	char_shift(t_format *f);
 int		join_buf(t_printf *p, t_format *f);
-char	*pft_zero_itoa(t_format *f,  t_fl_itoa *a, char *str);
+char	*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s);
 char	*pft_whole_itoa(t_format *f, unsigned long long whole, char *str);
 int 	get_order(unsigned long long num);
 char	*join_float_string(long double n, t_format *f, t_fl_string *s);
 char	*free_float_parts(t_fl_string *s);
+void	add_sign_or_zero(t_format *f, t_fl_string *s, long double n, int *i);
+void	left_side_starters(long double n, t_format *f, t_fl_string *s, int *i);
+char	*add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s);
+void	set_float_string(char *str, unsigned long long num, int order, \
+	int param);
 
 void	set_flags(t_printf *p, const char *format, t_format *f);
 void	set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap);

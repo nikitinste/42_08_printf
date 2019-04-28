@@ -6,26 +6,11 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 09:32:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 17:50:47 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 10:38:06 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int 		get_order(unsigned long long num)
-{
-	int		order;
-
-	if (num == 0)
-		return (1);
-	order = 0;
-	while (num > 0)
-	{
-		num /= 10;
-		order++;
-	}
-	return (order);
-}
 
 static unsigned long long	put_ordr(int order)
 {
@@ -50,7 +35,7 @@ static char	*get_float_string(long double n, t_format *f, t_fl_itoa *a)
 	if (!(s.w_part = pft_whole_itoa(f, a->whl, s.w_part)))
 		return (NULL);
 	s.w_len = f->len;
-	if (!(s.f_part = pft_zero_itoa(f, a, s.f_part)))
+	if (!(s.f_part = pft_zero_itoa(f, a, &s)))
 	{
 		free (s.w_part);
 		return (NULL);
@@ -66,6 +51,18 @@ static char	*get_float_string(long double n, t_format *f, t_fl_itoa *a)
 		s.dif ++;
 	}
 	return (join_float_string(n, f, &s));
+}
+
+static void	get_round(t_fl_itoa	*a)
+{
+	if ((a->frc % 10) >= 5)
+	{
+		if (get_order(a->frc + 10) > a->frc_order)
+			a->whl++;
+		a->frc = ((a->frc + 10) / 10);
+	}
+	else
+		a->frc /= 10;
 }
 
 static char	*pft_float_itoa(long double n, t_format *f)
@@ -85,16 +82,7 @@ static char	*pft_float_itoa(long double n, t_format *f)
 	a.frc = (unsigned long long)((a.num - a.whl) * put_ordr(a.prec + 1));
 	a.frc_order = get_order(a.frc);
 	if (a.frc && a.frc_order > 1)
-		{
-			if ((a.frc % 10) >= 5)
-			{
-				if (get_order(a.frc + 10) > a.frc_order)
-					a.whl++;
-				a.frc = ((a.frc + 10) / 10);
-			}
-			else
-				a.frc /= 10;
-		}
+		get_round(&a);
 	else if (a.frc && a.frc >= 5)
 		a.whl++;
 	a.frc_order--;
