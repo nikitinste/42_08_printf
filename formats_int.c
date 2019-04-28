@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 16:13:27 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/27 16:23:10 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 14:59:40 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static long long	take_less(va_list *ap, int type)
 	return (arg);
 }
 
-int		format_d(t_printf *p, t_format *f, va_list *ap)
+int					format_d(t_printf *p, t_format *f, va_list *ap)
 {
 	long long	arg;
 
@@ -86,7 +86,7 @@ static long long	take_less_unsigned(va_list *ap, int type)
 	return (arg);
 }
 
-int		format_oux(t_printf *p, t_format *f, va_list *ap)
+int					format_oux(t_printf *p, t_format *f, va_list *ap)
 {
 	unsigned long long	arg;
 
@@ -118,12 +118,11 @@ int		format_oux(t_printf *p, t_format *f, va_list *ap)
 ** ---------------------------- Address format --------------------------------|
 */
 
-int		format_p(t_printf *p, t_format *f, va_list *ap)
+int					format_p(t_printf *p, t_format *f, va_list *ap)
 {
 	unsigned long long	arg;
 
 	arg = (unsigned long long)va_arg(*ap, void*);
-	f->precision = -1;
 	f->flags[1] = 1;
 	f->flags[2] = 0;
 	if (!(f->str = pft_unsigned_itoa(arg, f)))

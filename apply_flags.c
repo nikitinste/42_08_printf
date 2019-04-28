@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:33:20 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 13:13:24 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 14:58:22 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int		char_flags(t_printf *p, t_format *f)
 		}
 		else
 		{
-			if (f->flags[2] && f->precision < 0)
+			if ((f->flags[2] && f->precision < 0) || (f->flags[2] \
+				&& (f->type == 0 || f->type == 1 || f->type == 9)))
 				c = '0';
 			if (!addnchar(p, c, diff))
 				return (0);
@@ -97,6 +98,9 @@ int		int_flags(t_printf *p, t_format *f)
 		else
 			addnchar(p, ' ', 1);
 	}
+	else if (f->flags[0] && f->start != -1 && f->type == 4 && !f->flags[4] \
+		&& p->str[f->start] != '-')
+		p->str[f->start] = ' ';
 	if (!join_buf(p, f))
 		return (0);
 	return (1);

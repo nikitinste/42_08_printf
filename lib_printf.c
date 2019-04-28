@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:55:11 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 10:23:02 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 15:05:27 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		addnspaces(t_format *f, char c, int n)
 		buf[f->len + i] = c;
 		i++;
 	}
-	free (f->str);
+	free(f->str);
 	f->str = buf;
 	f->len = len;
 	return (1);
@@ -70,7 +70,7 @@ int		addnchar(t_printf *p, char c, int n)
 		buf[p->len + i] = c;
 		i++;
 	}
-	free (p->str);
+	free(p->str);
 	p->str = buf;
 	p->len = len;
 	return (1);

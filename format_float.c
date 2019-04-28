@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 09:32:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 10:38:06 by uhand            ###   ########.fr       */
+/*   Created: 2019/04/28 14:52:18 by uhand             #+#    #+#             */
+/*   Updated: 2019/04/28 14:56:26 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static unsigned long long	put_ordr(int order)
 	return (res);
 }
 
-static char	*get_float_string(long double n, t_format *f, t_fl_itoa *a)
+static char					*get_float_string(long double n, t_format *f, \
+	t_fl_itoa *a)
 {
 	t_fl_string			s;
 
@@ -37,7 +38,7 @@ static char	*get_float_string(long double n, t_format *f, t_fl_itoa *a)
 	s.w_len = f->len;
 	if (!(s.f_part = pft_zero_itoa(f, a, &s)))
 	{
-		free (s.w_part);
+		free(s.w_part);
 		return (NULL);
 	}
 	if (f->width > f->len)
@@ -48,12 +49,12 @@ static char	*get_float_string(long double n, t_format *f, t_fl_itoa *a)
 	else if (f->flags[4] || f->flags[0] || n < 0)
 	{
 		f->len++;
-		s.dif ++;
+		s.dif++;
 	}
 	return (join_float_string(n, f, &s));
 }
 
-static void	get_round(t_fl_itoa	*a)
+static void					get_round(t_fl_itoa *a)
 {
 	if ((a->frc % 10) >= 5)
 	{
@@ -65,7 +66,7 @@ static void	get_round(t_fl_itoa	*a)
 		a->frc /= 10;
 }
 
-static char	*pft_float_itoa(long double n, t_format *f)
+static char					*pft_float_itoa(long double n, t_format *f)
 {
 	t_fl_itoa			a;
 
@@ -89,7 +90,7 @@ static char	*pft_float_itoa(long double n, t_format *f)
 	return (get_float_string(n, f, &a));
 }
 
-int			format_f(t_printf *p, t_format *f, va_list *ap)
+int							format_f(t_printf *p, t_format *f, va_list *ap)
 {
 	long double			arg;
 

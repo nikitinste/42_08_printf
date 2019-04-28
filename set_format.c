@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:42:26 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/22 12:34:45 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 15:10:41 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,30 @@ void		set_flags(t_printf *p, const char *format, t_format *f)
 ** ---------------------- Width & precision parsing ---------------------------|
 */
 
-static void	get_wnp(t_printf *p, const char *format, va_list *ap, int *param)
+static void	get_wnp(t_printf *p, const char *format, va_list *ap, t_format *f)
 {
 	if (P != '*')
 	{
-		*param = ft_atoi(&P);
+		f->width = ft_atoi(&P);
 		while (P >= '0' && P <= '9')
 			p->i++;
 	}
 	else
 	{
-		*param = va_arg(*ap, int);
+		f->width = va_arg(*ap, int);
+		if (f->width < 0)
+		{
+			f->width = -(f->width);
+			check_flag(f, 3);
+		}
 		p->i++;
 	}
 }
 
-void	set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap)
+void		set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap)
 {
 	if (P != '.')
-		get_wnp(p, format, ap, &f->width);
+		get_wnp(p, format, ap, f);
 	if (P != '.')
 		return ;
 	p->i++;
@@ -71,14 +76,24 @@ void	set_wnp(t_printf *p, const char *format, t_format *f, va_list *ap)
 		f->precision = 0;
 		return ;
 	}
-	get_wnp(p, format, ap, &f->precision);
+	if (P != '*')
+	{
+		f->precision = ft_atoi(&P);
+		while (P >= '0' && P <= '9')
+			p->i++;
+	}
+	else
+	{
+		f->precision = va_arg(*ap, int);
+		p->i++;
+	}
 }
 
 /*
 ** ---------------------------- Length parsing --------------------------------|
 */
 
-void	set_length(t_printf *p, const char *format, t_format *f)
+void		set_length(t_printf *p, const char *format, t_format *f)
 {
 	f->length[0] = P;
 	if (P == 'l' || P == 'h')

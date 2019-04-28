@@ -89,7 +89,6 @@ int				ft_lstaddnext(t_list **alst, void const *content, \
 	size_t content_size);
 void			ft_lstdelfirst(t_list **alst, void (*del)(void *, \
 	size_t));
-int				get_next_line(const int fd, char **line);
 int				ft_lstcount(t_list	*addr);
 int				ft_abs(int nbr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 09:59:33 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 18:00:16 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 15:12:26 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	check_sign_n_prec_unsigned(unsigned long long n, int *dif, \
 	}
 }
 
-char	*pft_unsigned_itoa(unsigned long long num, t_format *f)
+char		*pft_unsigned_itoa(unsigned long long num, t_format *f)
 {
 	int					dif;
 

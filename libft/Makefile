@@ -12,7 +12,7 @@
 
 NAME = libft.a
 
-HEAD = libft.h get_next_line.h
+HEAD = libft.h
 SRC = ft_putchar.c ft_putchar_fd.c ft_putstr.c ft_putstr_fd.c ft_putendl.c \
 ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_strlen.c ft_isalpha.c \
 ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c \
@@ -23,8 +23,8 @@ ft_strdup.c ft_strsub.c ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_order.c \
 ft_itoa.c ft_striter.c ft_striteri.c ft_strmap.c ft_strmapi.c ft_memcpy.c \
 ft_memccpy.c ft_memmove.c ft_strcpy.c ft_strncpy.c ft_strcat.c ft_strncat.c \
 ft_strlcat.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c \
-ft_lstmap.c ft_lstfree.c ft_lstaddnext.c ft_lstdelfirst.c get_next_line.c \
-ft_lstcount.c ft_abs.c ft_unsigned_itoa.c
+ft_lstmap.c ft_lstfree.c ft_lstaddnext.c ft_lstdelfirst.c ft_lstcount.c ft_abs.c \
+ft_unsigned_itoa.c
 OBJ = ft_putchar.o ft_putchar_fd.o ft_putstr.o ft_putstr_fd.o ft_putendl.o \
 ft_putendl_fd.o ft_putnbr.o ft_putnbr_fd.o ft_strlen.o ft_isalpha.o \
 ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o ft_toupper.o ft_tolower.o \
@@ -35,14 +35,15 @@ ft_strdup.o ft_strsub.o ft_strjoin.o ft_strtrim.o ft_strsplit.o ft_order.o \
 ft_itoa.o ft_striter.o ft_striteri.o ft_strmap.o ft_strmapi.o ft_memcpy.o \
 ft_memccpy.o ft_memmove.o ft_strcpy.o ft_strncpy.o ft_strcat.o ft_strncat.o \
 ft_strlcat.o ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o \
-ft_lstmap.o ft_lstfree.o ft_lstaddnext.o ft_lstdelfirst.o get_next_line.o \
-ft_lstcount.o ft_abs.o ft_unsigned_itoa.o
+ft_lstmap.o ft_lstfree.o ft_lstaddnext.o ft_lstdelfirst.o ft_lstcount.o ft_abs.o \
+ft_unsigned_itoa.o
 FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
+	rm -rf libft.h.gch
 
 $(OBJ): $(SRC) $(HEAD)
 	gcc -c $(SRC) $(HEAD) $(FLAGS)

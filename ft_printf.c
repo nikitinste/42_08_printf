@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:41:59 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/22 14:16:43 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 14:57:34 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ static int	get_format(va_list *ap, const char *format, t_printf *p)
 		set_wnp(p, format, &f, ap);
 	if (P == 'h' || P == 'l' || P == 'L')
 		set_length(p, format, &f);
-	if (P == 'c' || P == 's' || P == 'p' || P == 'f' || P == 'd' || P == 'i' \
-		|| P == 'o' || P == 'u' || P == 'x' || P == 'X' || P == '%')
-			set_type(P, &f);
+	if (P == 'c' || P == 'C' || P == 's' || P == 'S' || P == 'p' || P == 'f' \
+		|| P == 'F' || P == 'd' || P == 'D' || P == 'i' || P == 'o' || \
+			P == 'O' || P == 'u' || P == 'U' || P == 'x' || P == 'X' \
+				|| P == '%')
+		set_type(P, &f);
 	else
+	{
+		p->i--;
 		return (1);
+	}
 	if (!(p->method_arr[f.type](p, &f, ap)))
-		return free_str(&f);
+		return (free_str(&f));
 	return (1);
 }
 

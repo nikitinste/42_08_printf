@@ -6,14 +6,13 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:00:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 11:05:50 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 15:11:55 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
-char		*add_first_part_of_string(long double n, t_format *f, \
+char	*add_first_part_of_string(long double n, t_format *f, \
 	t_fl_string *s, int i)
 {
 	if (!f->flags[3])
@@ -30,7 +29,7 @@ char		*add_first_part_of_string(long double n, t_format *f, \
 	return (f->str);
 }
 
-char		*join_float_string(long double n, t_format *f, t_fl_string *s)
+char	*join_float_string(long double n, t_format *f, t_fl_string *s)
 {
 	int		i;
 
@@ -57,7 +56,7 @@ char		*join_float_string(long double n, t_format *f, t_fl_string *s)
 	return (f->str);
 }
 
-void		set_float_string(char *str, unsigned long long num, int order, \
+void	set_float_string(char *str, unsigned long long num, int order, \
 	int param)
 {
 	if (param)
@@ -70,7 +69,7 @@ void		set_float_string(char *str, unsigned long long num, int order, \
 	}
 }
 
-char		*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s)
+char	*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s)
 {
 	int		i;
 
@@ -116,5 +115,5 @@ char	*pft_whole_itoa(t_format *f, unsigned long long whole, char *str)
 		return (NULL);
 	str[f->len] = '\0';
 	set_float_string(str, whole, order, dot);
-	return(str);
+	return (str);
 }

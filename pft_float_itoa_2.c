@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 09:50:06 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 11:06:28 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 15:10:02 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*free_float_parts(t_fl_string *s)
 	return (NULL);
 }
 
-int 		get_order(unsigned long long num)
+int		get_order(unsigned long long num)
 {
 	int		order;
 
@@ -52,7 +52,7 @@ void	add_sign_or_zero(t_format *f, t_fl_string *s, long double n, int *i)
 	s->dif--;
 }
 
-char *add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s)
+char	*add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s)
 {
 	int		i;
 

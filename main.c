@@ -6,14 +6,14 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:04:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 11:10:24 by uhand            ###   ########.fr       */
+/*   Updated: 2019/04/28 17:41:45 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-# define INPUT "%- +100.58f", 123.22314
+# define INPUT "{%05.%}"
 
 int		main(void)
 {
