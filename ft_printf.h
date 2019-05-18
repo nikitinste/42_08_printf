@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/17 16:34:46 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/18 16:38:50 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,12 @@ void			add_sign_or_zero(t_format *f, t_fl_string *s, long double n, \
 void			left_side_starters(long double n, t_format *f, t_fl_string *s, \
 	int *i);
 char			*add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s);
-void			set_float_string(char *str, unsigned long long num, int order, \
-	int param);
-void	set_float_string_fract(char *str, unsigned long long num, int order, \
-	t_fl_itoa *a);
+char			*add_first_part_of_string(long double n, t_format *f, \
+	t_fl_string *s, int i);
+//void			set_float_string(char *str, unsigned long long num, int order, \
+//	int param);
+void			set_float_string_fract(char *str, unsigned long long num, \
+	int order, t_fl_itoa *a);
 
 void			set_flags(t_printf *p, const char *format, t_format *f);
 void			set_wnp(t_printf *p, const char *format, t_format *f, \

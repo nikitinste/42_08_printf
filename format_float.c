@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 14:52:18 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/17 17:19:15 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/18 16:43:51 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,15 @@ static char					*pft_float_itoa(long double n, t_format *f)
 {
 	t_fl_itoa			a;
 
+	if (n < 0)
+		a.num = (-n);
+	else
+		a.num = n;
 	if (f->precision == -1)
 		f->precision = 6;
 	a.prec = f->precision;
 	if (f->precision > 18)
 		a.prec = 18;
-	if (n < 0)
-		a.num = (-n);
-	else
-		a.num = n;
 	a.whl = (unsigned long long)a.num;
 	a.frc = (unsigned long long)((a.num - a.whl) * put_ordr(a.prec + 1));
 	a.frc_order = get_order(a.frc);

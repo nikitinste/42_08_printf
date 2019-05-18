@@ -6,30 +6,13 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:00:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/18 15:24:45 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/18 16:37:35 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*add_first_part_of_string(long double n, t_format *f, \
-	t_fl_string *s, int i)
-{
-	if (!f->flags[3])
-		left_side_starters(n, f, s, &i);
-	else if (n < 0 || f->flags[4] || f->flags[0])
-		add_sign_or_zero(f, s, n, &i);
-	pft_strncpy(&f->str[i], s->w_part, s->w_len);
-	pft_strncpy(&f->str[s->w_len + i], s->f_part, s->f_len);
-	while (s->dif > 0)
-	{
-		f->str[f->len - s->dif] = ' ';
-		s->dif--;
-	}
-	return (f->str);
-}
-
-char	*join_float_string(long double n, t_format *f, t_fl_string *s)
+char		*join_float_string(long double n, t_format *f, t_fl_string *s)
 {
 	int		i;
 
@@ -55,7 +38,7 @@ char	*join_float_string(long double n, t_format *f, t_fl_string *s)
 	return (f->str);
 }
 
-void	set_float_string(char *str, unsigned long long num, int order, \
+static void	set_float_string(char *str, unsigned long long num, int order, \
 	int param)
 {
 	if (param)
@@ -68,8 +51,8 @@ void	set_float_string(char *str, unsigned long long num, int order, \
 	}
 }
 
-void	set_float_string_fract(char *str, unsigned long long num, int order, \
-	t_fl_itoa *a)
+void		set_float_string_fract(char *str, unsigned long long num, \
+	int order, t_fl_itoa *a)
 {
 	int		i;
 
@@ -87,7 +70,7 @@ void	set_float_string_fract(char *str, unsigned long long num, int order, \
 	}
 }
 
-char	*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s)
+char		*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s)
 {
 	int		i;
 
@@ -116,7 +99,8 @@ char	*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s)
 	return (s->f_part);
 }
 
-char	*pft_whole_itoa(t_format *f, unsigned long long whole, t_fl_string *s)
+char		*pft_whole_itoa(t_format *f, unsigned long long whole, \
+	t_fl_string *s)
 {
 	int		dot;
 	int		order;
