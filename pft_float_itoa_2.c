@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 09:50:06 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 15:10:02 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/17 20:17:48 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*free_float_parts(t_fl_string *s)
 {
 	if (s->w_part != NULL)
 		free(s->w_part);
-	if (s->w_part != NULL)
+	if (s->f_part != NULL)
 		free(s->f_part);
 	return (NULL);
 }
@@ -59,7 +59,7 @@ char	*add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s)
 	if (!(s->f_part = ft_strnew(f->precision + 1)))
 		return (NULL);
 	s->f_part[f->precision] = '\0';
-	set_float_string(s->f_part, a->frc, a->frc_order, 0);
+	set_float_string_fract(s->f_part, a->frc, a->frc_order, a);
 	i = 0;
 	while ((a->frc_order + i) < f->precision)
 	{
@@ -80,16 +80,17 @@ void	left_side_starters(long double n, t_format *f, t_fl_string *s, int *i)
 			f->str[*i] = ' ';
 			*i += 1;
 		}
-		s->dif = 0;
+		s->dif = 1;
 		add_sign_or_zero(f, s, n, i);
 	}
 	else
 	{
 		add_sign_or_zero(f, s, n, i);
-		while (*i < (s->dif))
+		while (*i <= (s->dif))
 		{
 			f->str[*i] = '0';
 			*i += 1;
 		}
+		s->dif = 0;
 	}
 }

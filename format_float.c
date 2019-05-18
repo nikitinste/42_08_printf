@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 14:52:18 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 14:56:26 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/17 17:19:15 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static char					*get_float_string(long double n, t_format *f, \
 	s.w_part = NULL;
 	s.f_part = NULL;
 	s.dif = 0;
-	if (!(s.w_part = pft_whole_itoa(f, a->whl, s.w_part)))
+	if (!(s.w_part = pft_whole_itoa(f, a->whl, &s)))
 		return (NULL);
-	s.w_len = f->len;
+	f->len = s.w_len;
 	if (!(s.f_part = pft_zero_itoa(f, a, &s)))
 	{
 		free(s.w_part);
@@ -56,14 +56,27 @@ static char					*get_float_string(long double n, t_format *f, \
 
 static void					get_round(t_fl_itoa *a)
 {
-	if ((a->frc % 10) >= 5)
+	if (a->frc_order == a->prec + 1)
 	{
-		if (get_order(a->frc + 10) > a->frc_order)
-			a->whl++;
-		a->frc = ((a->frc + 10) / 10);
+		if ((a->frc % 10) >= 5)
+		{
+			if (get_order(a->frc + 10) > a->frc_order)
+				a->whl++;
+			a->frc = ((a->frc + 10) / 10);
+		}
+		else
+			a->frc /= 10;
 	}
 	else
-		a->frc /= 10;
+	{
+		if ((a->frc % 10) >= 5)
+		{
+			a->frc = ((a->frc + 10) / 10);
+			a->frc_order++;
+		}
+		else
+			a->frc /= 10;
+	}
 }
 
 static char					*pft_float_itoa(long double n, t_format *f)
@@ -82,9 +95,9 @@ static char					*pft_float_itoa(long double n, t_format *f)
 	a.whl = (unsigned long long)a.num;
 	a.frc = (unsigned long long)((a.num - a.whl) * put_ordr(a.prec + 1));
 	a.frc_order = get_order(a.frc);
-	if (a.frc && a.frc_order > 1)
+	if (a.frc && (a.frc_order > 1 || (a.frc_order == 1 && a.prec > 1)))
 		get_round(&a);
-	else if (a.frc && a.frc >= 5)
+	else if (a.frc && a.frc >= 5 && (a.frc_order == a.prec + 1))
 		a.whl++;
 	a.frc_order--;
 	return (get_float_string(n, f, &a));
