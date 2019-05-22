@@ -6,18 +6,18 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 09:50:06 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/17 20:17:48 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/22 20:24:23 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*free_float_parts(t_fl_string *s)
+char	*free_float_parts(char *str1, char *str2)
 {
-	if (s->w_part != NULL)
-		free(s->w_part);
-	if (s->f_part != NULL)
-		free(s->f_part);
+	if (str1 != NULL)
+		free(str1);
+	if (str2 != NULL)
+		free(str2);
 	return (NULL);
 }
 
@@ -36,9 +36,9 @@ int		get_order(unsigned long long num)
 	return (order);
 }
 
-void	add_sign_or_zero(t_format *f, t_fl_string *s, long double n, int *i)
+void	add_sign_or_zero(t_fl_itoa *a, t_format *f, t_fl_string *s, int *i)
 {
-	if (n < 0)
+	if (a->sign == 1)
 		f->str[*i] = '-';
 	else if (f->flags[4])
 		f->str[*i] = '+';
@@ -71,7 +71,7 @@ char	*add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s)
 	return (s->f_part);
 }
 
-void	left_side_starters(long double n, t_format *f, t_fl_string *s, int *i)
+void	left_side_starters(t_fl_itoa *a, t_format *f, t_fl_string *s, int *i)
 {
 	if (!f->flags[2])
 	{
@@ -81,11 +81,11 @@ void	left_side_starters(long double n, t_format *f, t_fl_string *s, int *i)
 			*i += 1;
 		}
 		s->dif = 1;
-		add_sign_or_zero(f, s, n, i);
+		add_sign_or_zero(a, f, s, i);
 	}
 	else
 	{
-		add_sign_or_zero(f, s, n, i);
+		add_sign_or_zero(a, f, s, i);
 		while (*i <= (s->dif))
 		{
 			f->str[*i] = '0';

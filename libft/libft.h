@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 13:50:48 by uhand             #+#    #+#             */
-/*   Updated: 2019/02/13 17:53:47 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/21 18:29:00 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char			*ft_strnstr(const char *haystack, const char *needle,\
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *str);
+unsigned int	ft_unsigned_atoi(const char *str);
 void			*ft_memalloc(size_t size);
 char			*ft_strnew(size_t size);
 void			*ft_memset(void *b, int c, size_t len);

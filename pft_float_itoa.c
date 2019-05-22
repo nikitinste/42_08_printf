@@ -6,35 +6,35 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:00:08 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/18 16:37:35 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/22 20:25:59 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*join_float_string(long double n, t_format *f, t_fl_string *s)
+char		*join_float_string(t_format *f, t_fl_string *s, t_fl_itoa *a)
 {
 	int		i;
 
 	i = 0;
 	if (!(f->str = ft_strnew(f->len + 1)))
-		return (free_float_parts(s));
+		return (free_float_parts(s->w_part, s->f_part));
 	f->str[f->len] = '\0';
 	if (s->dif <= 1)
 	{
 		if (s->dif == 1)
 		{
-			if (f->flags[3] && !(f->flags[4] || n < 0 || f->flags[0]))
+			if (f->flags[3] && !(f->flags[4] || a->sign == 1 || f->flags[0]))
 				f->str[f->len - 1] = ' ';
 			else
-				add_sign_or_zero(f, s, n, &i);
+				add_sign_or_zero(a, f, s, &i);
 		}
 		pft_strncpy(&f->str[i], s->w_part, s->w_len);
-		pft_strncpy(&f->str[s->w_len + i], s->f_part, (f->len - s->w_len - i));
+		pft_strncpy(&f->str[s->w_len + i], s->f_part, s->f_len);
 	}
 	else
-		f->str = add_first_part_of_string(n, f, s, 0);
-	free_float_parts(s);
+		f->str = add_first_part_of_string(a, f, s, 0);
+	free_float_parts(s->w_part, s->f_part);
 	return (f->str);
 }
 
@@ -115,7 +115,7 @@ char		*pft_whole_itoa(t_format *f, unsigned long long whole, \
 	}
 	if (!(s->w_part = ft_strnew(s->w_len + 1)))
 		return (NULL);
-	s->w_part[f->len] = '\0';
+	s->w_part[s->w_len] = '\0';
 	set_float_string(s->w_part, whole, order, dot);
 	return (s->w_part);
 }

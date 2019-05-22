@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/18 16:38:50 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/22 20:22:23 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ struct			s_printf
 
 typedef struct	s_fl_itoa
 {
+	double				arg;
 	long double			num;
 	unsigned long long	whl;
 	unsigned long long	frc;
 	int					frc_order;
 	int					prec;
+	char				sign;
 }				t_fl_itoa;
 
 /*
@@ -79,6 +81,17 @@ typedef struct	s_fl_string
 	int					f_len;
 	int					dif;
 }				t_fl_string;
+
+/*
+** Long precision params: l
+*/
+
+typedef struct	s_lprec
+{
+	long double			frc;
+	char				*f_part;
+	int					i;
+}				t_lprec;
 
 int				ft_printf(const char *format, ...);
 void			tprintf_init(t_printf *p);
@@ -100,19 +113,22 @@ char			*pft_zero_itoa(t_format *f, t_fl_itoa *a, t_fl_string *s);
 char			*pft_whole_itoa(t_format *f, unsigned long long whole, \
 	t_fl_string *s);
 int				get_order(unsigned long long num);
-char			*join_float_string(long double n, t_format *f, t_fl_string *s);
-char			*free_float_parts(t_fl_string *s);
-void			add_sign_or_zero(t_format *f, t_fl_string *s, long double n, \
+char			*join_float_string(t_format *f, t_fl_string *s, t_fl_itoa *a);
+char			*free_float_parts(char *str1, char *str2);
+void			add_sign_or_zero(t_fl_itoa *a, t_format *f, t_fl_string *s, \
 	int *i);
-void			left_side_starters(long double n, t_format *f, t_fl_string *s, \
+void			left_side_starters(t_fl_itoa *a, t_format *f, t_fl_string *s, \
 	int *i);
 char			*add_some_bagels(t_format *f, t_fl_itoa *a, t_fl_string *s);
-char			*add_first_part_of_string(long double n, t_format *f, \
+char			*add_first_part_of_string(t_fl_itoa *a, t_format *f, \
 	t_fl_string *s, int i);
+unsigned long long	put_ordr(int order);
 //void			set_float_string(char *str, unsigned long long num, int order, \
 //	int param);
 void			set_float_string_fract(char *str, unsigned long long num, \
 	int order, t_fl_itoa *a);
+char			*get_long_precision (t_format *f, t_fl_itoa *a);
+void			get_double_rep(double n, t_fl_itoa *a);
 
 void			set_flags(t_printf *p, const char *format, t_format *f);
 void			set_wnp(t_printf *p, const char *format, t_format *f, \
