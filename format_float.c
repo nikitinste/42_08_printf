@@ -6,13 +6,13 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 14:52:18 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/22 20:19:26 by uhand            ###   ########.fr       */
+/*   Updated: 2019/05/23 19:29:35 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned long long			put_ordr(int order)
+unsigned long long	put_ordr(int order)
 {
 	unsigned long long res;
 
@@ -25,7 +25,7 @@ unsigned long long			put_ordr(int order)
 	return (res);
 }
 
-static char					*get_float_string(t_format *f, t_fl_itoa *a)
+static char			*get_float_string(t_format *f, t_fl_itoa *a)
 {
 	t_fl_string			s;
 
@@ -53,7 +53,7 @@ static char					*get_float_string(t_format *f, t_fl_itoa *a)
 	return (join_float_string(f, &s, a));
 }
 
-static void					get_round(t_fl_itoa *a)
+static void			get_round(t_fl_itoa *a)
 {
 	if (a->frc_order == a->prec + 1)
 	{
@@ -78,16 +78,13 @@ static void					get_round(t_fl_itoa *a)
 	}
 }
 
-static char					*pft_float_itoa(long double n, t_format *f)
+static char			*pft_float_itoa(t_fl_itoa a, long double n, t_format *f)
 {
-	t_fl_itoa			a;
-
 	a.arg = n;
 	if (n < 0)
 		a.num = (-n);
 	else
 		a.num = n;
-	get_double_rep(n, &a);
 	if (f->precision < 0)
 		f->precision = 6;
 	a.prec = f->precision;
@@ -104,24 +101,21 @@ static char					*pft_float_itoa(long double n, t_format *f)
 	return (get_float_string(f, &a));
 }
 
-int							format_f(t_printf *p, t_format *f, va_list *ap)
+int					format_f(t_printf *p, t_format *f, va_list *ap)
 {
-	double				arg;
+	t_fl_itoa			a;
+	int					ret;
 
 	if (f->length[0] != 0 && f->length[0] == 'L')
-		arg = (double)va_arg(*ap, long double);
+		a.arg = (double)va_arg(*ap, long double);
 	else
-		arg = va_arg(*ap, double);
-	if (arg != arg)
-	{
-		f->len = 3;
-		if (!(f->str = (char*)malloc(sizeof(char) * (f->len + 1))))
-			return (0);
-		f->str[f->len] = '\0';
-		pft_strncpy(f->str, "nan", f->len);
+		a.arg = va_arg(*ap, double);
+	get_double_rep(&a);
+	if ((ret = check_int_and_nan(&a,f)))
 		return (char_flags(p, f));
-	}
-	else if (!(f->str = pft_float_itoa(arg, f)))
+	else if (ret == -1)
+		return (0);
+	else if (!(f->str = pft_float_itoa(a, a.arg, f)))
 		return (0);
 	if (!join_buf(p, f))
 		return (0);
