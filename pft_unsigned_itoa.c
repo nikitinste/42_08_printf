@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 09:59:33 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/28 15:12:26 by uhand            ###   ########.fr       */
+/*   Updated: 2019/06/12 17:39:09 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,32 @@ static void	add_prefix(char *str, t_format *f, int *dif)
 		str[1] = 'X';
 		*dif += 2;
 	}
-	else
+	else if (!(f->type == 5 && f->order < f->precision))
 		*dif += 1;
 }
 
 static int	pft_oct_n_gex_order(unsigned long long num, t_format *f)
 {
-	int		order;
-
 	if (num == 0)
 	{
 		if (f->precision == 0 && !(f->type == 5 && f->flags[1]))
 			return (0);
 		return (1);
 	}
-	order = 0;
+	f->order = 0;
 	if (f->type == 5)
 		while (num > 0)
 		{
 			num /= 8;
-			order++;
+			f->order++;
 		}
 	else
 		while (num > 0)
 		{
 			num /= 16;
-			order++;
+			f->order++;
 		}
-	return (order);
+	return (f->order);
 }
 
 static void	check_sign_n_prec_unsigned(unsigned long long n, int *dif, \
@@ -92,6 +90,8 @@ static void	check_sign_n_prec_unsigned(unsigned long long n, int *dif, \
 	{
 		*dif = f->precision - f->len;
 		f->len = f->precision;
+		if (f->type == 5)//+
+			return ;//+
 	}
 	if (f->flags[1] && (n != 0 || f->type == 2) && (f->type == 2 || \
 		f->type == 5 || f->type == 7 || f->type == 8))
@@ -100,7 +100,8 @@ static void	check_sign_n_prec_unsigned(unsigned long long n, int *dif, \
 			f->len++;
 		else
 			f->len += 2;
-		if (f->width > f->len && f->flags[2] && !f->flags[3])
+		if (f->width > f->len && f->flags[2] && !f->flags[3]\
+			&& f->precision < 0)
 			f->len = f->width;
 	}
 }

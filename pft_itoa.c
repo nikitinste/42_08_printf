@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 18:45:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/04/25 16:54:50 by uhand            ###   ########.fr       */
+/*   Updated: 2019/06/12 16:49:23 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void	check_sign_n_prec(int *dif, long long n, t_format *f)
 	if (f->flags[4] || n < 0)
 	{
 		f->len++;
-		if (f->width > f->len && f->flags[2] && !f->flags[3])
+		if (f->width > f->len && f->flags[2] && !f->flags[3] \
+			&& f->precision < 0)
 			f->len = f->width;
 	}
 }

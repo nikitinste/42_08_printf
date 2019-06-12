@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:42:21 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/23 19:14:02 by uhand            ###   ########.fr       */
+/*   Updated: 2019/06/12 17:35:30 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ struct			s_format
 	int					precision;
 	int					type;
 	int					len;
+	int					order;
 	int					start;
 	char				flags[5];
 	char				length[2];

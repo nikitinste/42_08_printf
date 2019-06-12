@@ -6,15 +6,16 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:04:16 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/24 20:24:12 by uhand            ###   ########.fr       */
+/*   Updated: 2019/06/12 17:39:46 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <float.h>
+#include <limits.h>
 
-# define INPUT "%1.5d|%-1.5d|%+1.5d|% 1.5d|%01.5d", 0, 0, 0, 0, 0
+# define INPUT "%#.hho", ULLONG_MAX
 int		main(void)
 {
 	int		ret;

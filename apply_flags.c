@@ -6,7 +6,7 @@
 /*   By: uhand <uhand@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:33:20 by uhand             #+#    #+#             */
-/*   Updated: 2019/05/22 13:56:30 by uhand            ###   ########.fr       */
+/*   Updated: 2019/06/12 16:24:37 by uhand            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		int_flags(t_printf *p, t_format *f)
 	if (f->flags[0] && f->type == 4 && !f->flags[4] && f->str[0] != '-' \
 		&& f->str[0] != ' ' && f->start == -1)
 	{
-		if (f->str[0] == '0' && f->len > 1)
+		if (f->str[0] == '0' && f->len > 1 && f->str[1] != ' ' && !f->precision)
 			f->str[0] = ' ';
 		else if (f->str[f->len - 1] == ' ')
 			char_shift(f);
